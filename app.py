@@ -61,3 +61,10 @@ async def add_device(device: dict):
         raise HTTPException(status_code=201, detail="Device with this name already exists")
     readings.append(device)
     return device
+
+@app.get("/devices/room/{room}/devices")
+async def get_devices_by_room(room: str):
+    devices_in_room = [device for device in readings if device['room'] == room]
+    if not devices_in_room:
+        raise HTTPException(status_code=404, detail="No devices found in this room")
+    return devices_in_room
