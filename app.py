@@ -37,3 +37,8 @@ async def get_readings():
 async def get_hottest_reading():
     hottest_device = hottest_devices(readings)
     return hottest_device
+
+@app.get("/readings/online")
+async def get_online_readings():
+    online_devices = [device for device in readings if device['online']]
+    return online_devices
