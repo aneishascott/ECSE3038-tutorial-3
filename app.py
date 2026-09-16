@@ -49,3 +49,8 @@ async def get_device_by_name(name: str):
     if device is None:
         raise HTTPException(status_code=404, detail="Device not found")
     return device
+
+@app.get("/stats")
+async def get_stats():
+    avg_temp = average_temp(readings)
+    return {"average_temperature": avg_temp}
