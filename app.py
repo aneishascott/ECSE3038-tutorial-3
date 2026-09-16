@@ -32,3 +32,8 @@ print(hottest_devices(readings))
 @app.get("/readings")
 async def get_readings():
     return readings
+
+@app.get("/readings/hottest")
+async def get_hottest_reading():
+    hottest_device = hottest_devices(readings)
+    return hottest_device
