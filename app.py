@@ -1,3 +1,7 @@
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
 readings = [
     {"name": "front-door", "room": "hall", "temp": 27.4, "online": True},
     {"name": "hall-lamp",  "room": "hall",    "temp": 26.1, "online": True},
@@ -24,3 +28,7 @@ def hottest_devices(devices):
     hottest_device = next(device for device in devices if device['temp'] == max_temp)
     return hottest_device
 print(hottest_devices(readings))
+
+@app.get("/readings")
+async def get_readings():
+    return readings
