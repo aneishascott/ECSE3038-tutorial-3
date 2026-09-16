@@ -42,3 +42,10 @@ async def get_hottest_reading():
 async def get_online_readings():
     online_devices = [device for device in readings if device['online']]
     return online_devices
+
+@app.get("/devices/{name}")
+async def get_device_by_name(name: str):
+    device = next((device for device in readings if device['name'] == name), None)
+    if device is None:
+        raise HTTPException(status_code=404, detail="Device not found")
+    return device
