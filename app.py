@@ -54,3 +54,10 @@ async def get_device_by_name(name: str):
 async def get_stats():
     avg_temp = average_temp(readings)
     return {"average_temperature": avg_temp}
+
+@app.post("/devices")
+async def add_device(device: dict):
+    if any(d['name'] == device['name'] and d['room'] == device['room'] and d['temp'] == device['temp'] and d['online'] == device['online'] for d in readings):
+        raise HTTPException(status_code=201, detail="Device with this name already exists")
+    readings.append(device)
+    return device
