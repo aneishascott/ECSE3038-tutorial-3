@@ -28,3 +28,7 @@ def hottest_devices(devices):
     hottest_device = next(device for device in devices if device['temp'] == max_temp)
     return hottest_device
 print(hottest_devices(readings))
+
+@app.get("/devices")
+async def get_readings():
+    return readings
