@@ -59,3 +59,10 @@ async def get_stats():
 async def add_device(device: dict):
     readings.append(device)
     return device
+
+@app.get("/rooms/{room}/devices")
+async def get_devices_by_room(room: str):
+    devices_in_room = [device for device in readings if device['room'] == room]
+    if not devices_in_room:
+        raise HTTPException(status_code=404, detail="No room called " + room)
+    return devices_in_room
